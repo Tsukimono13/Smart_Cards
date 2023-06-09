@@ -6,6 +6,7 @@ import {Container} from "components/Container";
 import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
+import Title from "components/titleCard/Title";
 
 
 type IFormInput = {
@@ -25,11 +26,11 @@ function SignIn() {
     }
 
     return (
-        <BlockDiv>
+        <MainBlockDiv>
             <MainSignIn>
                 <Container>
                     <Block>
-                        <MainText>Sign In</MainText>
+                       <Title title={'Sign In'}/>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div>
                                 <TextField
@@ -53,7 +54,7 @@ function SignIn() {
                                 <TextField style={{width: '347px'}}
                                            id="standard-basic"
                                            type={showPassword ? "text" : "password"}
-                                           label="Confirm password" variant="standard"
+                                           label="Password" variant="standard"
                                            {...register("password", {
                                                required: "This filed is required",
                                                minLength: {
@@ -85,20 +86,20 @@ function SignIn() {
                                 <RememberMeText>Remember me</RememberMeText>
                             </CheckBoxBlock>
                             <LinkBox>
-                                <ForgotPass to={'/forgotPassword'}>Forgot Password?</ForgotPass>
+                                <ForgotPass to={'/recovery'}>Forgot Password?</ForgotPass>
                             </LinkBox>
                             <div>
                                 <Button padding={'8px 145px'} type='submit' disabled={!isValid}>Sign In</Button>
                             </div>
-                            <HaveAcc>Already have an account?</HaveAcc>
-                            <LinkSignUpBox>
-                                <SignUp to={'/signUp'}>Sign Up</SignUp>
-                            </LinkSignUpBox>
+                            <TextQuestion>Already have an account?</TextQuestion>
+                            <LinkWrapper>
+                                <LinkAnotherPage to={'/registration'}>Sign Up</LinkAnotherPage>
+                            </LinkWrapper>
                         </form>
                     </Block>
                 </Container>
             </MainSignIn>
-        </BlockDiv>
+        </MainBlockDiv>
     );
 }
 
@@ -106,7 +107,7 @@ export default SignIn;
 
 const MainSignIn = styled.div`
   width: 413px;
-  height: 552px;
+  min-height: 552px;
   background: #ffffff;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
@@ -115,26 +116,18 @@ const MainSignIn = styled.div`
 `
 const Block = styled.div`
   display: flex;
-
   align-items: center;
   flex-direction: column;
   height: 100%;
 `
-const BlockDiv = styled.div`
+const MainBlockDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   background: #f9f9fa;
 `
-const MainText = styled.h2`
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 32px;
-  color: #000000;
-  margin-top: 35px;
-  margin-bottom: 41px;
-`
+
 const RememberMeText = styled.span`
   font-style: normal;
   font-weight: 500;
@@ -164,7 +157,7 @@ const ForgotPass = styled(Link)`
   line-height: 17px;
   color: #000000;
 `
-const HaveAcc = styled.p`
+const TextQuestion = styled.p`
   font-weight: 600;
   font-size: 14px;
   line-height: 24px;
@@ -172,9 +165,8 @@ const HaveAcc = styled.p`
   color: #000000;
   opacity: 0.5;
   margin-top: 31px;
-  margin-bottom: 11px;
 `
-const SignUp = styled(Link)`
+const LinkAnotherPage = styled(Link)`
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
@@ -183,7 +175,7 @@ const SignUp = styled(Link)`
   color: #366EFF;
 `
 
-const LinkSignUpBox = styled.div`
+const LinkWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 29px;

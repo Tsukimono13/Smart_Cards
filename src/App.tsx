@@ -3,6 +3,11 @@ import './App.css';
 import SignIn from "features/auth/Sign-in";
 import Header from "sections/Header";
 import {Route, Routes} from "react-router-dom";
+import SignUp from "features/auth/registration/SignUp";
+import RecovetyPassword from "features/auth/recoreryPassword/RecovetyPassword";
+import EmailSent from "features/auth/recoreryPassword/EmailSent";
+import CreateNewPassword from "features/auth/recoreryPassword/CreateNewPassword";
+import PersonalInfo from "features/mainPage/PersonalInfo";
 
 
 function App() {
@@ -11,6 +16,13 @@ function App() {
             <Header/>
                 <Routes>
                     <Route path="/" element={<SignIn/>}/>
+                    <Route path="*" element={<SignIn/>}/>
+                    <Route path="/registration" element={<SignUp/>}/>
+                    <Route path="/signIn" element={<SignIn/>}/>
+                    <Route path="/recovery" element={<RecovetyPassword/>}/>
+                    <Route path="/email" element={<EmailSent/>}/>
+                    <Route path="/new" element={<CreateNewPassword/>}/>
+                    <Route path="/info" element={<PersonalInfo/>}/>
                 </Routes>
         </>
     );

@@ -6,30 +6,33 @@ import {Container} from "components/Container";
 import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
+import Title from "components/titleCard/Title";
 
 
 type IFormInput = {
     email: string
     password: string
     rememberMe: boolean
+    confirmPassword: string
 }
 
-function Registration() {
+function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-    const {register, handleSubmit, formState: {errors, isValid}, reset} = useForm<IFormInput>({mode: 'onBlur'});
+    const {register, handleSubmit, formState: {errors, isValid}, reset, watch} = useForm<IFormInput>({mode: 'onBlur'});
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        reset()
+        const { confirmPassword, ...formData } = data;
+        console.log(formData);
     }
-
+    const password = watch('password');
     return (
-        <BlockDiv>
+        <MainBlockDiv>
             <MainSignIn>
                 <Container>
                     <Block>
-                        <MainText>Sign In</MainText>
+                        <Title title={'Sign Up'}/>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div>
                                 <TextField
@@ -83,14 +86,16 @@ function Registration() {
                                 <TextField style={{width: '347px'}}
                                            id="standard-basic"
                                            type={showPassword ? "text" : "password"}
-                                           label="Password" variant="standard"
-                                           {...register("password", {
+                                           label="Confirm password" variant="standard"
+                                           {...register("confirmPassword", {
                                                required: "This filed is required",
                                                minLength: {
                                                    value: 5,
                                                    message: 'Write more then 5 letters'
-                                               }
+                                               },
+                                               validate: (value) => value === password || 'The passwords do not match',
                                            })}
+
                                            error={!!errors.password}
                                            required
                                            InputProps={{
@@ -108,35 +113,28 @@ function Registration() {
                                                ),
                                            }}
                                 />
+                                {errors.confirmPassword && <div style={{color: "red"}}>{errors.confirmPassword.message}</div>}
                             </PasswordTextFieldBlock>
-                            {errors?.password && <div style={{color: "red"}}>{errors.password.message}</div>}
-                            <CheckBoxBlock>
-                                <Checkbox checked={true} style={{marginRight: '30px', width: '18px', height: '18px'}}/>
-                                <RememberMeText>Remember me</RememberMeText>
-                            </CheckBoxBlock>
-                            <LinkBox>
-                                <ForgotPass to={'/forgotPassword'}>Forgot Password?</ForgotPass>
-                            </LinkBox>
-                            <div>
-                                <Button padding={'8px 145px'} type='submit' disabled={!isValid}>Sign In</Button>
-                            </div>
-                            <HaveAcc>Already have an account?</HaveAcc>
-                            <LinkSignUpBox>
-                                <SignUp to={'/signUp'}>Sign Up</SignUp>
-                            </LinkSignUpBox>
+                            <ButtonContainer>
+                                <Button padding={'8px 145px'} type='submit' disabled={!isValid}>Sign Up</Button>
+                            </ButtonContainer>
+                            <TextQuestion>Already have an account?</TextQuestion>
+                            <LinkWrapper>
+                                <LinkAnotherPage to={'/signIn'}>Sign In</LinkAnotherPage>
+                            </LinkWrapper>
                         </form>
                     </Block>
                 </Container>
             </MainSignIn>
-        </BlockDiv>
+        </MainBlockDiv>
     );
 }
 
-export default Registration;
+export default SignUp;
 
 const MainSignIn = styled.div`
   width: 413px;
-  height: 552px;
+  min-height: 552px;
   background: #ffffff;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
@@ -150,51 +148,19 @@ const Block = styled.div`
   flex-direction: column;
   height: 100%;
 `
-const BlockDiv = styled.div`
+const MainBlockDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   background: #f9f9fa;
 `
-const MainText = styled.h2`
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 32px;
-  color: #000000;
-  margin-top: 35px;
-  margin-bottom: 41px;
-`
-const RememberMeText = styled.span`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: #000000;
-  margin-left: -12px;
-`
-const LinkBox = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 29px;
-  margin-bottom: 69px;
-`
 
 const PasswordTextFieldBlock = styled.div`
   margin-top: 24px;
 `
-const CheckBoxBlock = styled.div`
-  margin-top: 24px;
-`
 
-const ForgotPass = styled(Link)`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: #000000;
-`
-const HaveAcc = styled.p`
+const TextQuestion = styled.p`
   font-weight: 600;
   font-size: 14px;
   line-height: 24px;
@@ -204,7 +170,10 @@ const HaveAcc = styled.p`
   margin-top: 31px;
   margin-bottom: 11px;
 `
-const SignUp = styled(Link)`
+const ButtonContainer = styled.div`
+margin-top: 60px;
+`
+const LinkAnotherPage = styled(Link)`
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
@@ -213,7 +182,7 @@ const SignUp = styled(Link)`
   color: #366EFF;
 `
 
-const LinkSignUpBox = styled.div`
+const LinkWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 29px;
