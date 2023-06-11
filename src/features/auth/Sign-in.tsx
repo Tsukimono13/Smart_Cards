@@ -5,8 +5,10 @@ import {Link} from "react-router-dom";
 import {Container} from "components/Container";
 import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {useState} from "react";
+import React, {useState} from "react";
 import Title from "components/titleCard/Title";
+import {useAppDispatch} from "app/hooks";
+import {authThunks} from "features/auth/auth-slice";
 
 
 type IFormInput = {
@@ -19,10 +21,23 @@ function SignIn() {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
+    const dispatch = useAppDispatch()
 
-    const {register, handleSubmit, formState: {errors, isValid}, reset} = useForm<IFormInput>({mode: 'onBlur'});
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid},
+        reset,
+        setValue,
+        watch
+    } = useForm<IFormInput>({mode: 'onBlur'});
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
+        dispatch(authThunks.login(data))
         reset()
+    }
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue("rememberMe", event.target.checked);
     }
 
     return (
@@ -30,7 +45,7 @@ function SignIn() {
             <MainSignIn>
                 <Container>
                     <Block>
-                       <Title title={'Sign In'}/>
+                        <Title title={'Sign In'}/>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div>
                                 <TextField
@@ -82,7 +97,9 @@ function SignIn() {
                             </PasswordTextFieldBlock>
                             {errors?.password && <div style={{color: "red"}}>{errors.password.message}</div>}
                             <CheckBoxBlock>
-                                <Checkbox checked={true} style={{marginRight: '30px', width: '18px', height: '18px'}}/>
+                                <Checkbox checked={watch("rememberMe")}
+                                          onChange={handleCheckboxChange}
+                                          style={{marginRight: '30px', width: '18px', height: '18px'}}/>
                                 <RememberMeText>Remember me</RememberMeText>
                             </CheckBoxBlock>
                             <LinkBox>

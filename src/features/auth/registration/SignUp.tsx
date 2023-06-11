@@ -1,5 +1,5 @@
 import {useForm, SubmitHandler} from "react-hook-form";
-import {Checkbox, IconButton, InputAdornment, TextField} from "@mui/material";
+import {IconButton, InputAdornment, TextField} from "@mui/material";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {Container} from "components/Container";
@@ -7,12 +7,13 @@ import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
 import Title from "components/titleCard/Title";
+import {useAppDispatch} from "app/hooks";
+import {authThunks} from "features/auth/auth-slice";
 
 
 type IFormInput = {
     email: string
     password: string
-    rememberMe: boolean
     confirmPassword: string
 }
 
@@ -20,11 +21,13 @@ function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
+    const dispatch = useAppDispatch()
 
     const {register, handleSubmit, formState: {errors, isValid}, reset, watch} = useForm<IFormInput>({mode: 'onBlur'});
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        const { confirmPassword, ...formData } = data;
-        console.log(formData);
+        const {confirmPassword, ...formData} = data;
+        dispatch(authThunks.register(formData));
+        reset()
     }
     const password = watch('password');
     return (
@@ -113,7 +116,8 @@ function SignUp() {
                                                ),
                                            }}
                                 />
-                                {errors.confirmPassword && <div style={{color: "red"}}>{errors.confirmPassword.message}</div>}
+                                {errors.confirmPassword &&
+                                    <div style={{color: "red"}}>{errors.confirmPassword.message}</div>}
                             </PasswordTextFieldBlock>
                             <ButtonContainer>
                                 <Button padding={'8px 145px'} type='submit' disabled={!isValid}>Sign Up</Button>
@@ -171,7 +175,7 @@ const TextQuestion = styled.p`
   margin-bottom: 11px;
 `
 const ButtonContainer = styled.div`
-margin-top: 60px;
+  margin-top: 60px;
 `
 const LinkAnotherPage = styled(Link)`
   font-weight: 600;
