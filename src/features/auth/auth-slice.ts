@@ -37,7 +37,7 @@ export const login = createAppAsyncThunk<{ profile: NewProfileType }, ArgLoginTy
         const res = await authApi.login(arg)
         return {profile: res.data}
     })
-export const authMe = createAppAsyncThunk<{ profile: NewProfileType }>("auth/login",
+export const authMe = createAppAsyncThunk<{ profile: NewProfileType }>("auth/authMe",
     async () => {
         const res = await authApi.me()
         return {profile: res.data}
@@ -57,4 +57,4 @@ export const forgotPassword = createAppAsyncThunk<any, ForgotPasswordType>("auth
 
 export const authReducer = slice.reducer
 //export const authActions = slice.actions
-export const authThunks = {register, login}
+export const authThunks = {register, login, logOut, authMe}

@@ -60,7 +60,7 @@ function SignIn() {
                                             message: 'Please enter your email'
                                         }
                                     })}
-                                    error={!!errors.password}
+                                    error={!!errors.email}
                                     required
                                     type='email'/>
                                 {errors?.email && <div style={{color: "red"}}>{errors.email.message}</div>}
