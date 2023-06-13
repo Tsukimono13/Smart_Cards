@@ -17,9 +17,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
+          <GlobalError />
         <App />
           <GlobalStyles/>
-          <GlobalError />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
