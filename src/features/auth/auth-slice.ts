@@ -1,6 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createAppAsyncThunk} from "utils/createAppAsyncThunk";
+import {createAppAsyncThunk} from "common/utils/createAppAsyncThunk";
 import {ArgLoginType, ArgRegisterType, authApi, ForgotPasswordType, NewProfileType} from "features/auth/auth.api";
+import {appActions} from "app/app-slice";
+import {thunkTryCatch} from "common/utils/thunk-try-catch";
 
 
 export const slice = createSlice({
@@ -24,18 +26,27 @@ export const slice = createSlice({
             .addCase(logOut.fulfilled, (state, action) => {
                 state.profile = null
             })
+            .addCase(forgotPassword.fulfilled, (state, action) => {
+
+            })
+
     }
 })
 
-export const register = createAppAsyncThunk<void, ArgRegisterType>("auth/register",
-    async (arg: ArgRegisterType) => {
-        const res = await authApi.register(arg)
+export const register = createAppAsyncThunk<void, ArgRegisterType>(
+    "auth/register",
+    async (arg: ArgRegisterType, thunkAPI) => {
+        return thunkTryCatch(thunkAPI, async () => {
+            await authApi.register(arg)
+        })
     })
 
 export const login = createAppAsyncThunk<{ profile: NewProfileType }, ArgLoginType>("auth/login",
-    async (arg) => {
-        const res = await authApi.login(arg)
-        return {profile: res.data}
+    async (arg, thunkAPI) => {
+        return thunkTryCatch(thunkAPI, async () => {
+            const res = await authApi.login(arg)
+            return {profile: res.data}
+        })
     })
 export const authMe = createAppAsyncThunk<{ profile: NewProfileType }>("auth/authMe",
     async () => {
@@ -50,11 +61,13 @@ export const logOut = createAppAsyncThunk<void, void>("auth/logOut",
 
 export const forgotPassword = createAppAsyncThunk<any, ForgotPasswordType>("auth/forgot",
     async (arg) => {
+
         const res = await authApi.forgot(arg)
-        return {}
+
+        console.log(res)
     })
 
 
 export const authReducer = slice.reducer
 //export const authActions = slice.actions
-export const authThunks = {register, login, logOut, authMe}
+export const authThunks = {register, login, logOut, authMe, forgotPassword}

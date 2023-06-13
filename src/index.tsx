@@ -7,6 +7,8 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import {GlobalStyles} from "styles/GlobalStyles";
+import 'react-toastify/dist/ReactToastify.css';
+import {GlobalError} from "common/globalError/GlobalError";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -17,6 +19,7 @@ root.render(
       <Provider store={store}>
         <App />
           <GlobalStyles/>
+          <GlobalError />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

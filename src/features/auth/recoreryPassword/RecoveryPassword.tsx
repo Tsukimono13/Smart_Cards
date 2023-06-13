@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import Title from "components/titleCard/Title";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {authThunks} from "features/auth/auth-slice";
+import {useAppDispatch} from "app/hooks";
 
 type IFormInput = {
     email: string
@@ -14,18 +15,20 @@ type IFormInput = {
 }
 
 const RecoveryPassword = () => {
+    const dispatch = useAppDispatch()
     const {register, handleSubmit, formState: {errors, isValid}, reset} = useForm<IFormInput>({mode: 'onBlur'});
-
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        const dataWithMessage = {
-            ...data, message: `<div style="background-color: lime; padding: 15px">
+    const emailMessage = `<div style="background-color: lime; padding: 15px">
 password recovery link: 
 <a href='http://localhost:3000/#/set-new-password/$token$'>
 link</a>
 </div>`
+
+    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+        const dataWithMessage = {
+            ...data, message: emailMessage
         }
         console.log(dataWithMessage)
-        //dispatch(authThunks.login(data))
+        dispatch(authThunks.forgotPassword(dataWithMessage))
         reset()
     }
     return (

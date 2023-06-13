@@ -1,4 +1,4 @@
-import {instance} from "common/common.api";
+import {instance} from "common/api/common.api";
 
 
 export const authApi = {
