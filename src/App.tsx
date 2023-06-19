@@ -8,8 +8,7 @@ import RecoveryPassword from "features/auth/recoreryPassword/RecoveryPassword";
 import EmailSent from "features/auth/recoreryPassword/EmailSent";
 import CreateNewPassword from "features/auth/recoreryPassword/CreateNewPassword";
 import PersonalInfo from "features/mainPage/PersonalInfo";
-import {LinearProgress} from "@mui/material";
-import {useAppSelector} from "app/hooks";
+import Main from "features/packs/main/Main";
 
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
     return (
         <>
             <Header/>
-
                     <Routes>
                         <Route path="/" element={<SignIn/>}/>
                         <Route path="*" element={<SignIn/>}/>
@@ -27,6 +25,7 @@ function App() {
                         <Route path="/email" element={<EmailSent/>}/>
                         <Route path="/new" element={<CreateNewPassword/>}/>
                         <Route path="/info" element={<PersonalInfo/>}/>
+                        <Route path="/home" element={<Main/>}/>
                     </Routes>
         </>
     );

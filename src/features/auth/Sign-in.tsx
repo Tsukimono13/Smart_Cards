@@ -7,8 +7,9 @@ import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import React, {useState} from "react";
 import Title from "components/titleCard/Title";
-import {useAppDispatch} from "app/hooks";
+
 import {authThunks} from "features/auth/auth-slice";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
 
 
 type IFormInput = {

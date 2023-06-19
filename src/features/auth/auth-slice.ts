@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "common/utils/createAppAsyncThunk";
 import {ArgLoginType, ArgRegisterType, authApi, ForgotPasswordType, NewProfileType} from "features/auth/auth.api";
-import {appActions} from "app/app-slice";
-import {thunkTryCatch} from "common/utils/thunk-try-catch";
+import {thunkTryCatch} from "common/utils";
+
+
 
 
 export const slice = createSlice({
@@ -41,12 +42,16 @@ export const register = createAppAsyncThunk<void, ArgRegisterType>(
         })
     })
 
-export const login = createAppAsyncThunk<{ profile: NewProfileType }, ArgLoginType>("auth/login",
-    async (arg, thunkAPI) => {
-        return thunkTryCatch(thunkAPI, async () => {
+export const login = createAppAsyncThunk<{ profile: NewProfileType }, ArgLoginType>
+("auth/login", async (arg, thunkAPI) => {
+        return thunkTryCatch(
+            thunkAPI,
+            async () => {
             const res = await authApi.login(arg)
             return {profile: res.data}
-        })
+        },
+            true
+        )
     })
 export const authMe = createAppAsyncThunk<{ profile: NewProfileType }>("auth/authMe",
     async () => {

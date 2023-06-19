@@ -1,14 +1,15 @@
 import {useForm, SubmitHandler} from "react-hook-form";
 import {IconButton, InputAdornment, TextField} from "@mui/material";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Container} from "components/Container";
 import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
 import Title from "components/titleCard/Title";
-import {useAppDispatch} from "app/hooks";
 import {authThunks} from "features/auth/auth-slice";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
+import {toast} from "react-toastify";
 
 
 type IFormInput = {
@@ -22,11 +23,21 @@ function SignUp() {
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const {register, handleSubmit, formState: {errors, isValid}, reset, watch} = useForm<IFormInput>({mode: 'onBlur'});
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
         const {confirmPassword, ...formData} = data;
-        dispatch(authThunks.register(formData));
+        dispatch(authThunks.register(formData))
+            .unwrap()
+            .then(()=>{
+            toast.success('Loginezation is successed')
+            setTimeout(()=>{
+                navigate('/signIn')
+            }, 1000)
+        }).catch((err) => {
+            toast.error(err.e.response.data.error);
+        });
         reset()
     }
     const password = watch('password');

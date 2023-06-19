@@ -7,7 +7,8 @@ import {Link} from "react-router-dom";
 import Title from "components/titleCard/Title";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {authThunks} from "features/auth/auth-slice";
-import {useAppDispatch} from "app/hooks";
+import {useAppDispatch} from "common/hooks/useAppDispatch";
+
 
 type IFormInput = {
     email: string
