@@ -1,15 +1,15 @@
 import {useForm, SubmitHandler} from "react-hook-form";
 import {Checkbox, IconButton, InputAdornment, TextField} from "@mui/material";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {Container} from "components/Container";
 import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import React, {useState} from "react";
 import Title from "components/titleCard/Title";
-
 import {authThunks} from "features/auth/auth-slice";
 import {useAppDispatch} from "common/hooks/useAppDispatch";
+import {useAppSelector} from "common/hooks";
 
 
 type IFormInput = {
@@ -23,6 +23,7 @@ function SignIn() {
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector((state) => state.app.isInitialized)
 
     const {
         register,
@@ -32,6 +33,7 @@ function SignIn() {
         setValue,
         watch
     } = useForm<IFormInput>({mode: 'onBlur'});
+
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
         dispatch(authThunks.login(data))
         reset()
@@ -39,6 +41,10 @@ function SignIn() {
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue("rememberMe", event.target.checked);
+    }
+
+    if (isLoggedIn) {
+        return <Navigate to={"/home"} />;
     }
 
     return (

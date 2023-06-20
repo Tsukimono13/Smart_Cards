@@ -4,24 +4,18 @@ import {ArgLoginType, ArgRegisterType, authApi, ForgotPasswordType, NewProfileTy
 import {thunkTryCatch} from "common/utils";
 
 
-
-
 export const slice = createSlice({
     name: 'auth',
     initialState: {
         profile: null as NewProfileType | null
     },
-    reducers: {
-        /*setProfile: (state, action: PayloadAction<{profile: NewProfileType}>) => {
-            state.profile = action.payload.profile
-        }*/
-    },
+    reducers: {},
     extraReducers: builder => {
         builder
             .addCase(login.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
             })
-            .addCase(authMe.fulfilled, (state, action) => {
+            .addCase(isInitialized.fulfilled, (state, action) => {
                 state.profile = action.payload.profile
             })
             .addCase(logOut.fulfilled, (state, action) => {
@@ -34,35 +28,49 @@ export const slice = createSlice({
     }
 })
 
-export const register = createAppAsyncThunk<void, ArgRegisterType>(
-    "auth/register",
-    async (arg: ArgRegisterType, thunkAPI) => {
-        return thunkTryCatch(thunkAPI, async () => {
+export const register = createAppAsyncThunk<void, ArgRegisterType>
+("auth/register", async (arg: ArgRegisterType, thunkAPI) => {
+    return thunkTryCatch(
+        thunkAPI,
+        async () => {
             await authApi.register(arg)
         })
-    })
+})
 
 export const login = createAppAsyncThunk<{ profile: NewProfileType }, ArgLoginType>
 ("auth/login", async (arg, thunkAPI) => {
-        return thunkTryCatch(
-            thunkAPI,
-            async () => {
+    return thunkTryCatch(
+        thunkAPI,
+        async () => {
             const res = await authApi.login(arg)
             return {profile: res.data}
         },
-            true
-        )
-    })
-export const authMe = createAppAsyncThunk<{ profile: NewProfileType }>("auth/authMe",
-    async () => {
-        const res = await authApi.me()
-        return {profile: res.data}
+        true
+    )
+})
+export const isInitialized = createAppAsyncThunk<{ profile: NewProfileType }>
+("auth/authMe", async (arg, thunkAPI) => {
+    return thunkTryCatch(
+        thunkAPI,
+        async () => {
+            const res = await authApi.me()
+            return {profile: res.data}
+        }
+    )
+})
+
+export const logOut = createAppAsyncThunk<void, void>
+("auth/logOut", async (arg, thunkAPI) => {
+    return thunkTryCatch(
+        thunkAPI,
+        async () => {
+            const res = await authApi.logOut()
+        }
+    )
     })
 
-export const logOut = createAppAsyncThunk<void, void>("auth/logOut",
-    async () => {
-        const res = await authApi.logOut()
-    })
+
+
 
 export const forgotPassword = createAppAsyncThunk<any, ForgotPasswordType>("auth/forgot",
     async (arg) => {
@@ -75,4 +83,4 @@ export const forgotPassword = createAppAsyncThunk<any, ForgotPasswordType>("auth
 
 export const authReducer = slice.reducer
 //export const authActions = slice.actions
-export const authThunks = {register, login, logOut, authMe, forgotPassword}
+export const authThunks = {register, login, logOut, isInitialized, forgotPassword}

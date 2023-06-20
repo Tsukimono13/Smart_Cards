@@ -19,17 +19,20 @@ const slice = createSlice({
             },
             setError: (state, action: PayloadAction<{ error: string | null }>) => {
                 state.error = action.payload.error
+            },
+            setInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+                state.isInitialized = action.payload.isInitialized
             }
         },
         extraReducers: (builder) => {
             builder.addMatcher((action) => action.type.endsWith('/pending'),
                 (state, action) => {
-                state.isLoading = true
-            })
+                    state.isLoading = true
+                })
                 .addMatcher((action) => action.type.endsWith('/fulfilled'),
-                (state, action) => {
-                state.isLoading = false
-            })
+                    (state, action) => {
+                        state.isLoading = false
+                    })
                 .addMatcher(
                     (action) => action.type.endsWith("/rejected"),
                     (state, action) => {

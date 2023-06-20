@@ -37,6 +37,27 @@ const Main = () => {
                         </FilterButtonBox>
                     </ButtonsContainer>
                 </div>
+                <div>
+                    <TableContainer>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cards</th>
+                            <th>Last Updated</th>
+                            <th>Created by</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr>
+                            <td>Ячейка 1</td>
+                            <td>Ячейка 2</td>
+                            <td>Ячейка 3</td>
+                        </tr>
+                        <tr>
+                            <td>Ячейка 4</td>
+                            <td>Ячейка 5</td>
+                            <td>Ячейка 6</td>
+                        </tr>
+                    </TableContainer>
+                </div>
             </Container>
         </MainDiv>
     );
@@ -83,14 +104,16 @@ const InputStyled = styled.input`
   }
 `
 const SearchBox = styled.div`
-
+  margin-right: 24px;
 `
 
 const SearchIcon = styled.img`
   position: absolute;
   z-index: 99999;
-  bottom: 530px;
-  left: 155px;
+  /*  bottom: 530px;
+    left: 180px;*/
+  top: 27%;
+  left: 18%;
 `
 const MyButton = styled.button`
   border: 1px solid #D9D9D9;
@@ -98,7 +121,8 @@ const MyButton = styled.button`
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  padding: 8px 40px 10px 40px;
+  width: 97px;
+  height: 36px;
 `
 
 const AllButton = styled.button`
@@ -107,9 +131,11 @@ const AllButton = styled.button`
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  padding: 8px 40px 10px 40px;
   background: #366EFF;
   color: #FFFFFF;
+  margin-right: 48px;
+  width: 97px;
+  height: 36px;
 `
 const FilterButton = styled.button`
   border: 1px solid #E8E8E8;
@@ -121,4 +147,15 @@ const FilterButton = styled.button`
 const FilterButtonBox = styled.div`
   margin-left: 36px;
   padding-top: 17px;
+`
+const TableContainer = styled.table`
+  border: 1px solid #EFEFEF;
+  margin-top: 24px;
+  
+  th {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    background: #EFEFEF;
+  }
 `

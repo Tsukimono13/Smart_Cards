@@ -30,12 +30,12 @@ function SignUp() {
         const {confirmPassword, ...formData} = data;
         dispatch(authThunks.register(formData))
             .unwrap()
-            .then(()=>{
-            toast.success('Loginezation is successed')
-            setTimeout(()=>{
-                navigate('/signIn')
-            }, 1000)
-        }).catch((err) => {
+            .then(() => {
+                toast.success('Registration is successful')
+                setTimeout(() => {
+                    navigate('/signIn')
+                }, 1000)
+            }).catch((err) => {
             toast.error(err.e.response.data.error);
         });
         reset()
