@@ -12,7 +12,7 @@ import {Navigate} from "react-router-dom";
 const Header = () => {
     const isLoading = useAppSelector((state) => state.app.isLoading);
     const profile = useAppSelector((state) => state.auth.profile);
-    const { logOut, isInitialized } = useActions(authThunks);
+    const {logOut, isInitialized} = useActions(authThunks);
 
     useEffect(() => {
         isInitialized({});

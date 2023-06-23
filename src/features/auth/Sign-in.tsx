@@ -44,7 +44,7 @@ function SignIn() {
     }
 
     if (isLoggedIn) {
-        return <Navigate to={"/home"} />;
+        return <Navigate to={"/home"}/>;
     }
 
     return (

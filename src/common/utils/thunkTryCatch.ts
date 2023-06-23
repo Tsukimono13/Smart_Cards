@@ -6,10 +6,10 @@ export const thunkTryCatch = async (
     logic: Function,
     showGlobalError: boolean = true
 ) => {
-    const { rejectWithValue } = thunkAPI;
+    const {rejectWithValue} = thunkAPI;
     try {
         return await logic();
     } catch (e) {
-        return rejectWithValue({ e, showGlobalError });
+        return rejectWithValue({e, showGlobalError});
     }
 };
