@@ -67,9 +67,7 @@ export const logOut = createAppAsyncThunk<void, void>
             const res = await authApi.logOut()
         }
     )
-    })
-
-
+})
 
 
 export const forgotPassword = createAppAsyncThunk<any, ForgotPasswordType>("auth/forgot",
