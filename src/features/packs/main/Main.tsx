@@ -151,7 +151,7 @@ const FilterButtonBox = styled.div`
 const TableContainer = styled.table`
   border: 1px solid #EFEFEF;
   margin-top: 24px;
-  
+
   th {
     font-weight: 500;
     font-size: 14px;

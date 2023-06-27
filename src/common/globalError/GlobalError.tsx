@@ -1,10 +1,9 @@
-import { toast, ToastContainer } from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 
-import { useEffect } from "react";
-import { appActions } from "app/app-slice";
+import {useEffect} from "react";
+import {appActions} from "app/app-slice";
 import {useAppSelector} from "common/hooks/useAppSelector";
 import {useAppDispatch} from "common/hooks/useAppDispatch";
-
 
 
 export const GlobalError = () => {
@@ -18,7 +17,7 @@ export const GlobalError = () => {
     useEffect(() => {
         if (error !== null) {
             setTimeout(() => {
-                dispatch(appActions.setError({ error: null }));
+                dispatch(appActions.setError({error: null}));
             }, 1000);
         }
     }, [error]);
