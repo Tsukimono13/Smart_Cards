@@ -16,16 +16,16 @@ function App() {
     return (
         <>
             <Header/>
-                    <Routes>
-                        <Route path="/" element={<Main/>}/>
-                        <Route path="*" element={<Main/>}/>
-                        <Route path="/registration" element={<SignUp/>}/>
-                        <Route path="/signIn" element={<SignIn/>}/>
-                        <Route path="/recovery" element={<RecoveryPassword/>}/>
-                        <Route path="/email" element={<EmailSent/>}/>
-                        <Route path="/new" element={<CreateNewPassword/>}/>
-                        <Route path="/info" element={<PersonalInfo/>}/>
-                    </Routes>
+            <Routes>
+                <Route path="/" element={<Main/>}/>
+                <Route path="*" element={<Main/>}/>
+                <Route path="/registration" element={<SignUp/>}/>
+                <Route path="/signIn" element={<SignIn/>}/>
+                <Route path="/recovery" element={<RecoveryPassword/>}/>
+                <Route path="/email" element={<EmailSent/>}/>
+                <Route path="/new" element={<CreateNewPassword/>}/>
+                <Route path="/info" element={<PersonalInfo/>}/>
+            </Routes>
         </>
     );
 }

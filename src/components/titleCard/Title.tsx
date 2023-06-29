@@ -9,7 +9,7 @@ type TitlePropsType = {
     mBottom?: string
 }
 
-const Title:React.FC<TitlePropsType> = ({title, size, lineHeight, mTop, mBottom}) => {
+const Title: React.FC<TitlePropsType> = ({title, size, lineHeight, mTop, mBottom}) => {
     return (
         <MainText
             size={size || '26px'}
