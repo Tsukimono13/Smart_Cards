@@ -1,7 +1,7 @@
 import {useForm, SubmitHandler} from "react-hook-form";
 import {Checkbox, IconButton, InputAdornment, TextField} from "@mui/material";
 import styled from "styled-components";
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import {Container} from "components/Container";
 import {Button} from "components/button.styled/Button";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
@@ -23,6 +23,7 @@ function SignIn() {
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const isLoggedIn = useAppSelector((state) => state.app.isInitialized)
 
     const {
@@ -43,9 +44,9 @@ function SignIn() {
         setValue("rememberMe", event.target.checked);
     }
 
-    if (isLoggedIn) {
-        return <Navigate to={"/home"}/>;
-    }
+   /* if (isLoggedIn) {
+        return navigate('/');
+    }*/
 
     return (
         <MainBlockDiv>

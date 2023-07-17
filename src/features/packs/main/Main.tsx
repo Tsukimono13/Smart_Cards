@@ -5,6 +5,7 @@ import RangeSlider from "components/rangeSlider/RangeSlider";
 import {Button} from "components/button.styled/Button";
 import search from 'assets/icons/loupe.svg'
 import filter from 'assets/icons/filter.svg'
+import arrow from 'assets/icons/updateArrow.svg'
 
 const Main = () => {
     return (
@@ -40,21 +41,18 @@ const Main = () => {
                 <div>
                     <TableContainer>
                         <tr>
-                            <th>Name</th>
+                            <StyledTableHeader>Name</StyledTableHeader>
                             <th>Cards</th>
-                            <th>Last Updated</th>
-                            <th>Created by</th>
-                            <th>Actions</th>
+                            <StyledTableHeader>Last Updated<img src={arrow}/></StyledTableHeader>
+                            <StyledTableHeader>Created by</StyledTableHeader>
+                            <StyledTableHeader>Actions</StyledTableHeader>
                         </tr>
                         <tr>
-                            <td>Ячейка 1</td>
+                            <StyledTableText>Ячейка 1</StyledTableText>
                             <td>Ячейка 2</td>
+                            <StyledTableText>Ячейка 3</StyledTableText>
                             <td>Ячейка 3</td>
-                        </tr>
-                        <tr>
-                            <td>Ячейка 4</td>
-                            <td>Ячейка 5</td>
-                            <td>Ячейка 6</td>
+                            <StyledTableText>Ячейка 3</StyledTableText>
                         </tr>
                     </TableContainer>
                 </div>
@@ -83,6 +81,7 @@ const TitleOfButtons = styled.p`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  margin-bottom: 8px;
 `
 const ButtonsContainer = styled.div`
   display: flex;
@@ -149,13 +148,64 @@ const FilterButtonBox = styled.div`
   padding-top: 17px;
 `
 const TableContainer = styled.table`
-  border: 1px solid #EFEFEF;
+  border: 2px solid #EFEFEF;
   margin-top: 24px;
-
+  height: 100%;
+  border-collapse: collapse;
+  
   th {
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
     background: #EFEFEF;
+    text-align: left;
+    padding: 15px 0;
+    border: 2px solid #EFEFEF;
+  }
+  
+  tr {
+    border: 2px solid #EFEFEF;
+  }
+  
+  td {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 15px 0;
+  }
+`
+const StyledTableHeader = styled.th`
+  
+  &:first-child {
+    padding-left: 36px;
+    padding-right: 218px;
+  }
+
+  &:nth-child(3) {
+    padding-left: 164px;
+    padding-right: 105px;
+    display: flex;
+    gap: 6px;
+  }
+
+  &:nth-child(5) {
+    padding-left: 53px;
+    padding-right: 54px;
+  }
+`;
+const StyledTableText = styled.td`
+  &:first-child {
+    padding-left: 36px;
+    padding-right: 218px;
+  }
+
+  &:nth-child(3) {
+    padding-left: 164px;
+    padding-right: 105px;
+  }
+
+  &:nth-child(5) {
+    padding-left: 53px;
+    padding-right: 54px;
   }
 `

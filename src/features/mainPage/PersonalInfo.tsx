@@ -2,7 +2,6 @@ import React from 'react';
 import {Container} from "components/Container";
 import Title from "components/titleCard/Title";
 import {Link} from "react-router-dom";
-import {Button} from "components/button.styled/Button";
 import styled from "styled-components";
 import myPhoto from "assets/img/photo_2023-06-04_16-49-33 (2).jpg"
 import changePhoto from "assets/icons/changePhoto.svg"

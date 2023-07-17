@@ -24,11 +24,11 @@ const Header = () => {
         <Box sx={{flexGrow: 1}}>
             <AppBar position="fixed" elevation={3} color='inherit'>
                 <Toolbar sx={{display: 'flex', justifyContent: 'flex-end'}} style={{marginRight: '136px'}}>
-                    {profile ? (
+                   {/* {profile ? (
                         <Button onClick={logoutHandler}>Log out</Button>
                     ) : (
                         <Navigate to={"/signIn"}/>
-                    )}
+                    )}*/}
                 </Toolbar>
                 {isLoading && <LinearProgress/>}
             </AppBar>
