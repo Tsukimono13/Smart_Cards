@@ -43,7 +43,7 @@ const Main = () => {
                         <tr>
                             <StyledTableHeader>Name</StyledTableHeader>
                             <th>Cards</th>
-                            <StyledTableHeader>Last Updated<img src={arrow}/></StyledTableHeader>
+                            <StyledTableHeader>Last Updated<img src={arrow} alt={'Sort icon'}/></StyledTableHeader>
                             <StyledTableHeader>Created by</StyledTableHeader>
                             <StyledTableHeader>Actions</StyledTableHeader>
                         </tr>
@@ -152,7 +152,7 @@ const TableContainer = styled.table`
   margin-top: 24px;
   height: 100%;
   border-collapse: collapse;
-  
+
   th {
     font-weight: 500;
     font-size: 14px;
@@ -162,11 +162,11 @@ const TableContainer = styled.table`
     padding: 15px 0;
     border: 2px solid #EFEFEF;
   }
-  
+
   tr {
     border: 2px solid #EFEFEF;
   }
-  
+
   td {
     font-size: 13px;
     font-weight: 400;
@@ -175,7 +175,7 @@ const TableContainer = styled.table`
   }
 `
 const StyledTableHeader = styled.th`
-  
+
   &:first-child {
     padding-left: 36px;
     padding-right: 218px;
