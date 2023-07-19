@@ -6,8 +6,19 @@ import {Button} from "components/button.styled/Button";
 import search from 'assets/icons/loupe.svg'
 import filter from 'assets/icons/filter.svg'
 import arrow from 'assets/icons/updateArrow.svg'
+import {useSelector} from "react-redux";
+import {RootState} from "../../../app/store";
+import {Navigate} from "react-router-dom";
 
 const Main = () => {
+    const isInitialized = useSelector<RootState>(state => state.app.isInitialized);
+    const packs = useSelector<RootState>(state => state.packs.packs)
+    console.log(packs)
+
+    if (isInitialized) {
+        return <Navigate to={'/'}/>
+    }
+
     return (
         <MainDiv>
             <Container>

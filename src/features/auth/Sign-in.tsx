@@ -10,6 +10,7 @@ import Title from "components/titleCard/Title";
 import {authThunks} from "features/auth/auth-slice";
 import {useAppDispatch} from "common/hooks/useAppDispatch";
 import {useAppSelector} from "common/hooks";
+import {toast} from "react-toastify";
 
 
 type IFormInput = {
@@ -24,7 +25,6 @@ function SignIn() {
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const isLoggedIn = useAppSelector((state) => state.app.isInitialized)
 
     const {
         register,
@@ -37,16 +37,21 @@ function SignIn() {
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
         dispatch(authThunks.login(data))
+            .unwrap()
+            .then(() => {
+                toast.success('Login is successful')
+                setTimeout(() => {
+                    navigate('/')
+                }, 1000)
+            }).catch((err) => {
+            toast.error(err.e.response.data.error);
+        });
         reset()
     }
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue("rememberMe", event.target.checked);
     }
-
-   /* if (isLoggedIn) {
-        return navigate('/');
-    }*/
 
     return (
         <MainBlockDiv>

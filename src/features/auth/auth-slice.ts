@@ -4,7 +4,7 @@ import {ArgLoginType, ArgRegisterType, authApi, ForgotPasswordType, NewProfileTy
 import {thunkTryCatch} from "common/utils";
 
 
-export const slice = createSlice({
+const slice = createSlice({
     name: 'auth',
     initialState: {
         profile: null as NewProfileType | null
