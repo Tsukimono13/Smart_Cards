@@ -6,6 +6,3 @@ export const packsApi = {
     }
 }
 
-type PacksType = {
-
-}
