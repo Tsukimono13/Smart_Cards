@@ -7,14 +7,6 @@ const slice = createSlice({
     name: 'packs',
     initialState: {
         packs: {},
-        params: {
-            page: '1',
-            pageCount: '4',
-            min: '0',
-            max: '100',
-            user_id: '',
-            packName: '',
-        }
     },
     reducers: {},
     extraReducers: builder => {
