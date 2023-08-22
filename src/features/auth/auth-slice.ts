@@ -69,7 +69,6 @@ export const logOut = createAppAsyncThunk<void, void>
     )
 })
 
-
 export const forgotPassword = createAppAsyncThunk<any, ForgotPasswordType>("auth/forgot",
     async (arg) => {
 
@@ -77,7 +76,6 @@ export const forgotPassword = createAppAsyncThunk<any, ForgotPasswordType>("auth
 
         console.log(res)
     })
-
 
 export const authReducer = slice.reducer
 //export const authActions = slice.actions

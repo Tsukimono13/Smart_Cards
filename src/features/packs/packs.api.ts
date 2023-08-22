@@ -5,4 +5,3 @@ export const packsApi = {
         return instance.get<any>("/cards/pack")
     }
 }
-
